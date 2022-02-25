@@ -1,6 +1,4 @@
-const request = require("supertest")
 const db = require('../../data/db-config')
-// const server = require('../server')
 const userModel = require('../users/user-model')
 
 const user1 = {user_name: 'Tom'}
