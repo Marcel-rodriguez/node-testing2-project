@@ -51,4 +51,19 @@ describe('Users model functions', () => {
             expect(user).toEqual({user_id: 1, user_name: 'Tom'})
         })
     })
+
+    describe('Get Users', () => {
+        beforeEach(async () => {
+            await userModel.create(user1)
+            await userModel.create(user2)
+        })
+        test('returns the correct ammount of users', async () => {
+            const users = await userModel.find()
+            expect(users).toHaveLength(2)
+        })
+        test('returns all of the users', async () => {
+            const users = await userModel.find()
+            expect(users).toEqual([{user_id: 1, user_name: 'Tom'},{user_id: 2, user_name: 'Jerry'}])
+        })
+    })
 })
