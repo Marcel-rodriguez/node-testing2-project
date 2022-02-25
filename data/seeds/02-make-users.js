@@ -1,6 +1,6 @@
 const users = [
-    {user_name: 'Marcel', role_id: 2},
-    {user_name: 'Victoria', role_id:1}
+    {user_name: 'Marcel'},
+    {user_name: 'Victoria'}
 ]
 
 const roles = [
