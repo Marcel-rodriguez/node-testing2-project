@@ -17,7 +17,8 @@ const sharedConfig = {
 module.exports = {
     development: {
         ...sharedConfig,
-        connection: {filename: './data/socialMedia.db3'}
+        connection: {filename: './data/socialMedia.db3'},
+        seeds: { directory: './data/seeds' }
     },
     testing:{
         ...sharedConfig,
