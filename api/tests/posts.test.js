@@ -4,7 +4,9 @@ const postModel = require('../posts/posts-model')
 const userModel = require('../users/user-model')
 
 const post1 = {post_content: 'abc123', user_id: 1}
+const post2 = {post_content: 'abc1234', user_id: 2}
 const user1 = {user_name: 'test'}
+const user2 = {user_name: 'test2'}
 
 beforeAll(async () => {
     await db.migrate.rollback()
@@ -50,6 +52,29 @@ describe('Post model functions', () => {
             const posts = await db('posts')
             expect(posts).toHaveLength(0)
         })
-        test('Returns the correct deleted post')
+        test('Returns the correct deleted post', async () => {
+            const post = await postModel.remove(1)
+            expect(post).toEqual({post_id: 1, post_content: 'abc123', user_id: 1})
+        })
+    })
+
+    describe('Can get posts', () => {
+        beforeEach(async () => {
+            await userModel.create(user1)
+            await userModel.create(user2)
+            await postModel.create(post1)
+            await postModel.create(post2)
+        })
+        test('Can return the correct ammount of posts from the db', async () => {
+            const posts = await postModel.find()
+            expect(posts).toHaveLength(2)
+        })
+        test('Returns the correct posts from the db', async () => {
+            const posts = await postModel.find()
+            expect(posts).toEqual([
+                {post_id: 1,post_content: 'abc123', user_id: 1},
+                {post_id: 2,post_content: 'abc1234', user_id: 2}
+            ])
+        })
     })
 })
